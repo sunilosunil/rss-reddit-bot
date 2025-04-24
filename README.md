@@ -25,7 +25,7 @@ This bot fetches the latest science articles from popular RSS feeds and posts th
 
 ---
 
-## 🛠️ Setup Instructions
+## 🛠️ Local Setup Instructions
 
 ### 1. Clone the Repo
 
@@ -40,23 +40,7 @@ cd rss_to_reddit_bot
 pip install -r requirements.txt
 ```
 
----
-
-## 🔐 Getting Reddit API Credentials
-
-1. Visit: [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
-2. Scroll to the bottom and click **“create another app...”**
-3. Fill out:
-   - **name**: RSS Reddit Bot
-   - **type**: `script`
-   - **redirect uri**: `http://localhost`
-4. Save and note:
-   - `client_id`: the string below the app name
-   - `client_secret`: the generated secret
-
----
-
-## ✍️ Create `.env` File (for Local Testing)
+### 3. Create `.env` File (for Local Testing)
 
 Create a file named `.env` in the root folder:
 
@@ -78,48 +62,63 @@ python science_rss_bot.py
 
 ---
 
-## 🔄 Set Up GitHub Secrets for Automation
+## 🔐 How to Get Reddit API Credentials
 
-In your GitHub repository:
-
-1. Go to **Settings > Secrets > Actions**
-2. Click **New repository secret** and add:
-
-| Secret Name              | Value from your `.env` file               |
-|--------------------------|-------------------------------------------|
-| `REDDIT_CLIENT_ID`       | `your_client_id`                         |
-| `REDDIT_CLIENT_SECRET`   | `your_client_secret`                     |
-| `REDDIT_USERNAME`        | `your_reddit_username`                   |
-| `REDDIT_PASSWORD`        | `your_reddit_password`                   |
-| `REDDIT_USER_AGENT`      | `script:science_rss_bot:v1.0 ...`        |
-| `TARGET_SUBREDDIT`       | `your_target_subreddit`                  |
-| `DAYS_LOOKBACK`          | `1` (or any number of days to look back) |
-
----
-
-## 🕒 Scheduled Automation (GitHub Actions)
-
-The included GitHub Action `.github/workflows/daily.yml` runs the bot daily at 14:00 UTC.
-
-You can trigger it manually from the Actions tab as well.
+1. Log in to your Reddit account.
+2. Go to [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
+3. Scroll to the bottom and click **“create another app...”**
+4. Fill out the form:
+   - **name**: RSS Reddit Bot
+   - **type**: `script`
+   - **description**: (optional)
+   - **redirect uri**: `http://localhost`
+5. Click **Create app**
+6. Save the following values:
+   - `client_id`: shown just under the app name
+   - `client_secret`: shown after clicking “edit”
+   - Your Reddit **username** and **password** will be used for script authentication
+   - Use a meaningful `user_agent` (e.g. `script:science_rss_bot:v1.0 (by u/yourname)`)
 
 ---
 
-## 🧪 To Test Locally
+## 🔄 How It Runs with GitHub Actions
 
-```bash
-python science_rss_bot.py
+This project includes a GitHub Actions workflow file located at:
+
+```
+.github/workflows/daily.yml
 ```
 
-Make sure `.env` is correctly set.
+### What it does:
+- Checks out your code daily at 14:00 UTC
+- Installs dependencies from `requirements.txt`
+- Runs `science_rss_bot.py` with credentials loaded from GitHub Secrets
+
+### Running Automatically:
+1. Push this repository to GitHub.
+2. Go to your repo → **Settings → Secrets → Actions**
+3. Add these secrets (copy values from your `.env`):
+
+| Secret Name              | Value                              |
+|--------------------------|------------------------------------|
+| `REDDIT_CLIENT_ID`       | your Reddit app client_id          |
+| `REDDIT_CLIENT_SECRET`   | your Reddit app client_secret      |
+| `REDDIT_USERNAME`        | your Reddit username               |
+| `REDDIT_PASSWORD`        | your Reddit password               |
+| `REDDIT_USER_AGENT`      | e.g. script:science_rss_bot:v1.0   |
+| `TARGET_SUBREDDIT`       | e.g. mysciencefeed                 |
+| `DAYS_LOOKBACK`          | 1 (or number of days to look back) |
+
+### Manual Trigger
+You can also trigger the workflow manually from the **Actions** tab in GitHub.
 
 ---
 
 ## ✅ TODO / Improvements
 
-- Avoid posting duplicate articles
-- Add support for different categories or feeds
-- Add logging and error tracking
+- Avoid reposting already shared articles
+- Add logging or daily summary
+- Support for more feeds or subreddit rules
 
 ---
 
