@@ -57,7 +57,7 @@ DAYS_LOOKBACK=1
 Then run the bot locally:
 
 ```bash
-python science_rss_bot.py
+python rss_bot.py
 ```
 
 ---
@@ -92,7 +92,7 @@ This project includes a GitHub Actions workflow file located at:
 ### What it does:
 - Checks out your code daily at 14:00 UTC
 - Installs dependencies from `requirements.txt`
-- Runs `science_rss_bot.py` with credentials loaded from GitHub Secrets
+- Runs `rss_bot.py` with credentials loaded from GitHub Secrets
 
 ### Running Automatically:
 1. Push this repository to GitHub.
@@ -115,8 +115,6 @@ You can also trigger the workflow manually from the **Actions** tab in GitHub.
 ---
 
 ## ✅ TODO / Improvements
-
-- Avoid reposting already shared articles
 - Add logging or daily summary
 - Support for more feeds or subreddit rules
 

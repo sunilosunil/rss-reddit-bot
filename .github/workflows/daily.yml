@@ -1,9 +1,9 @@
 name: Run RSS to Reddit Bot
 
-on:
-  schedule:
-    - cron: '0 14 * * *' # Runs daily at 14:00 UTC
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: '0 14 * * *' # Runs daily at 14:00 UTC
+#   workflow_dispatch:
 
 jobs:
   run-bot:
